@@ -2,7 +2,7 @@ import reflex as rx
 from .navbar import navbar
 
 
-def base_page(child: rx.Component ,*args, **kwargs) -> rx.Component:
+def base_of_page(child: rx.Component ,*args, **kwargs) -> rx.Component:
 
     return rx.fragment(
         navbar(),

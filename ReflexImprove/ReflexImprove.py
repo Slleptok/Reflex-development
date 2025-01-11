@@ -3,8 +3,9 @@
 import reflex as rx
 
 from rxconfig import config
+from . import pages,navigation
 
-from .ui.base_page import base_page
+from .ui.base_page import base_of_page
 
 
 class State(rx.State):
@@ -25,9 +26,8 @@ class State(rx.State):
 
 def index() -> rx.Component:
     # Welcome Page (Index)
-    return base_page(
 
-        rx.vstack(
+        my_child = rx.vstack(
             rx.heading(State.label,State.num, size="9"),
             rx.text(
                 "Get started by editing ",
@@ -50,36 +50,10 @@ def index() -> rx.Component:
             align="center",
             align_center="center",
         ),
+        return base_of_page(my_child)
 
-    )
-
-def about_page() -> rx.Component:
-
-    return base_page(
-
-        rx.vstack(
-            rx.heading('About', size="9"),
-            rx.heading(State.label,State.num, size="9"),
-            rx.text(
-                "Information About team",
-                size="5",
-            ),
-            rx.input(on_change=State.handle_input_change()),
-            rx.hstack(
-                rx.button('Plus', on_click=State.count_clicks()), rx.button('Minuse', on_click=State.remove_clicks()),
-            ),
-
-
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-            align="center",
-            align_center="center",
-        ),
-
-    )
 
 
 app = rx.App()
 app.add_page(index)
-app.add_page(about_page,route='/about')
+app.add_page(pages.about_page(),route=navigation.route.ABOUT_ROUTE)
